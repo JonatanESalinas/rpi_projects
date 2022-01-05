@@ -3,12 +3,13 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-pin = 33
+pinLuz = 33
+pinVentilador = 31
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
-GPIO.setup(pin,GPIO.OUT)
-#GPIO.output(pin, GPIO.LOW)
+GPIO.setup(pinLuz,GPIO.OUT)
+GPIO.setup(pinVentilador,GPIO.OUT)
 
 @app.route('/', methods=['POST'])
 def enciende():
@@ -20,7 +21,10 @@ def enciende():
     
     if obj_a_encender == "luz":
         print("enciendo luz")
-        GPIO.output(pin, GPIO.HIGH)    
+        GPIO.output(pinLuz, GPIO.HIGH)
+    elif obj_a_encender == "ventilador":
+        print("enciendo luz")
+        GPIO.output(pinVentilador, GPIO.HIGH)
 
     return "encendido"
 
@@ -34,7 +38,10 @@ def apaga():
     
     if obj_a_apagar == "luz":
         print("apago luz")
-        GPIO.output(pin, GPIO.LOW)    
+        GPIO.output(pinLuz, GPIO.LOW)
+    elif obj_a_apagar == "ventilador":
+        print("apago ventilador")
+        GPIO.output(pinVentilador, GPIO.LOW)
     
     
     return "apagado"
