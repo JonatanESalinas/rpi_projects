@@ -11,6 +11,10 @@ GPIO.setwarnings(False)
 GPIO.setup(pinLuz,GPIO.OUT)
 GPIO.setup(pinVentilador,GPIO.OUT)
 
+#Pongo en HIGH los pines porque estos reles se activan con el LOW.
+GPIO.output(pinLuz, GPIO.HIGH)
+GPIO.output(pinVentilador, GPIO.HIGH)
+
 @app.route('/', methods=['POST'])
 def enciende():
     print("Voy a encender")
@@ -21,10 +25,10 @@ def enciende():
     
     if obj_a_encender == "luz":
         print("enciendo luz")
-        GPIO.output(pinLuz, GPIO.HIGH)
+        GPIO.output(pinLuz, GPIO.LOW)
     elif obj_a_encender == "ventilador":
         print("enciendo luz")
-        GPIO.output(pinVentilador, GPIO.HIGH)
+        GPIO.output(pinVentilador, GPIO.LOW)
 
     return "encendido"
 
@@ -38,10 +42,10 @@ def apaga():
     
     if obj_a_apagar == "luz":
         print("apago luz")
-        GPIO.output(pinLuz, GPIO.LOW)
+        GPIO.output(pinLuz, GPIO.HIGH)
     elif obj_a_apagar == "ventilador":
         print("apago ventilador")
-        GPIO.output(pinVentilador, GPIO.LOW)
+        GPIO.output(pinVentilador, GPIO.HIGH)
     
     
     return "apagado"
